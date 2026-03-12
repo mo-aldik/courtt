@@ -8,7 +8,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/V3'>
+      <Route path='/'>
         {/* DEFAULT ROUTE */}
 
         <Route index element={<HomePage />} />

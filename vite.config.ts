@@ -3,6 +3,6 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  base: '/V3/',
+  base: '/',
   plugins: [react(), tsconfigPaths()],
 });
