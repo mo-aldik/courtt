@@ -1,20 +1,6 @@
 import { Card, GridItem, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { useJsApiLoader } from '@react-google-maps/api';
-import { useGetArrestsApi } from 'apis/use-get-arrests';
-import { useGetAuctionsApi } from 'apis/use-get-auctions';
-import { useGetCaseStatisticsSummaryStaticApi } from 'apis/use-get-case-statistics-summary-static';
-import { useGetCsCasesApi } from 'apis/use-get-cases';
-import { getChartTypesApiEndpointIdentifier, useGetChartTypesApi } from 'apis/use-get-chart-types';
-import { useGetComprehensivePetitionsApi } from 'apis/use-get-comprehensive-petitions';
-import { useGetCsDecisionsApi } from 'apis/use-get-decisions';
-import { useGetDisbursementStatisticsApi } from 'apis/use-get-disbursement';
-import { useGetEnabatApi } from 'apis/use-get-enabat';
-import { useGetFeesApi } from 'apis/use-get-fees';
-import { useGetHasteCasesApi } from 'apis/use-get-haste-cases';
-import { useGetMemberDecisionsApi } from 'apis/use-get-member-decisions';
-import { useGetSettlementApi } from 'apis/use-get-settlement';
-import { useGetSmartPetitionsApi } from 'apis/use-get-smart-petitions';
-import { useGetVoucherApi } from 'apis/use-get-voucher';
+import { getChartTypesApiEndpointIdentifier } from 'apis/use-get-chart-types';
 import { useGetQueryData } from 'hooks/use-get-query-data';
 import { Layout } from 'layouts';
 import { useState } from 'react';
@@ -3820,111 +3806,109 @@ const geo = {
   error: null,
 };
 
-const REFRESH_INTERVAL = 300000;
-
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { isLoading: isLoadingGetChartTypes, isSuccess: isSuccessChartTypes } = useGetChartTypesApi({
-    refetchInterval: REFRESH_INTERVAL,
-  });
-  const {
-    data: dataEnabat,
-    isLoading: isLoadingEnabat,
-    isSuccess: isSuccessEnabat,
-  } = useGetEnabatApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessChartTypes,
-  });
-  const {
-    data: dataComprehensivePetitions,
-    isLoading: isLoadingComprehensivePetitions,
-    isSuccess: isSuccessComprehensivePetitions,
-  } = useGetComprehensivePetitionsApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessEnabat,
-  });
-  const {
-    data: dataGetMemberDecisions,
-    isLoading: isLoadingGetMemberDecisions,
-    isSuccess: isSuccessGetMemberDecisions,
-  } = useGetMemberDecisionsApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessComprehensivePetitions,
-  });
-  const {
-    data: dataGetAuctions,
-    isLoading: isLoadingGetAuctions,
-    isSuccess: isSuccessGetAuctions,
-  } = useGetAuctionsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessGetMemberDecisions });
-  const {
-    data: dataGetSettlement,
-    isLoading: isLoadingGetSettlement,
-    isSuccess: isSuccessGetSettlement,
-  } = useGetSettlementApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessGetAuctions,
-  });
+  // const { isLoading: isLoadingGetChartTypes, isSuccess: isSuccessChartTypes } = useGetChartTypesApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  // });
+  // const {
+  //   data: dataEnabat,
+  //   isLoading: isLoadingEnabat,
+  //   isSuccess: isSuccessEnabat,
+  // } = useGetEnabatApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessChartTypes,
+  // });
+  // const {
+  //   data: dataComprehensivePetitions,
+  //   isLoading: isLoadingComprehensivePetitions,
+  //   isSuccess: isSuccessComprehensivePetitions,
+  // } = useGetComprehensivePetitionsApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessEnabat,
+  // });
+  // const {
+  //   data: dataGetMemberDecisions,
+  //   isLoading: isLoadingGetMemberDecisions,
+  //   isSuccess: isSuccessGetMemberDecisions,
+  // } = useGetMemberDecisionsApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessComprehensivePetitions,
+  // });
+  // const {
+  //   data: dataGetAuctions,
+  //   isLoading: isLoadingGetAuctions,
+  //   isSuccess: isSuccessGetAuctions,
+  // } = useGetAuctionsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessGetMemberDecisions });
+  // const {
+  //   data: dataGetSettlement,
+  //   isLoading: isLoadingGetSettlement,
+  //   isSuccess: isSuccessGetSettlement,
+  // } = useGetSettlementApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessGetAuctions,
+  // });
 
-  const {
-    data: dataGetSmartPetitions,
-    isLoading: isLoadingGetSmartPetitions,
-    isSuccess: isSuccessGetSmartPetitions,
-  } = useGetSmartPetitionsApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessGetSettlement,
-  });
+  // const {
+  //   data: dataGetSmartPetitions,
+  //   isLoading: isLoadingGetSmartPetitions,
+  //   isSuccess: isSuccessGetSmartPetitions,
+  // } = useGetSmartPetitionsApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessGetSettlement,
+  // });
 
-  const {
-    data: dataGetVoucher,
-    isLoading: isLoadingGetVoucher,
-    isSuccess: isSuccessGetVoucher,
-  } = useGetVoucherApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessGetSmartPetitions });
+  // const {
+  //   data: dataGetVoucher,
+  //   isLoading: isLoadingGetVoucher,
+  //   isSuccess: isSuccessGetVoucher,
+  // } = useGetVoucherApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessGetSmartPetitions });
 
-  const {
-    data: dataGetCsDecisions,
-    isLoading: isLoadingGetCsDecisions,
-    isSuccess: isSuccessCsDecisions,
-  } = useGetCsDecisionsApi({
-    refetchInterval: REFRESH_INTERVAL,
-    enabled: isSuccessGetVoucher,
-  });
+  // const {
+  //   data: dataGetCsDecisions,
+  //   isLoading: isLoadingGetCsDecisions,
+  //   isSuccess: isSuccessCsDecisions,
+  // } = useGetCsDecisionsApi({
+  //   refetchInterval: REFRESH_INTERVAL,
+  //   enabled: isSuccessGetVoucher,
+  // });
 
-  const {
-    data: dataDisbursementStatistics,
-    isLoading: isLoadingDisbursementStatistics,
-    isSuccess: isSuccessDisbursementStatistics,
-  } = useGetDisbursementStatisticsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessCsDecisions });
+  // const {
+  //   data: dataDisbursementStatistics,
+  //   isLoading: isLoadingDisbursementStatistics,
+  //   isSuccess: isSuccessDisbursementStatistics,
+  // } = useGetDisbursementStatisticsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessCsDecisions });
 
-  const {
-    data: dataGetCsCases,
-    isLoading: isLoadingGetCsCases,
-    isSuccess: isSuccessCsCases,
-  } = useGetCsCasesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessDisbursementStatistics });
+  // const {
+  //   data: dataGetCsCases,
+  //   isLoading: isLoadingGetCsCases,
+  //   isSuccess: isSuccessCsCases,
+  // } = useGetCsCasesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessDisbursementStatistics });
 
-  const {
-    data: dataGetCaseStatisticsSummaryStatic,
-    isLoading: isLoadingGetCaseStatisticsSummaryStatic,
-    isSuccess: isSuccessStatisticsSummaryStatic,
-  } = useGetCaseStatisticsSummaryStaticApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessCsCases });
+  // const {
+  //   data: dataGetCaseStatisticsSummaryStatic,
+  //   isLoading: isLoadingGetCaseStatisticsSummaryStatic,
+  //   isSuccess: isSuccessStatisticsSummaryStatic,
+  // } = useGetCaseStatisticsSummaryStaticApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessCsCases });
 
-  const {
-    data: dataGetHasteCases,
-    isLoading: isLoadingGetHasteCases,
-    isSuccess: isSuccessHasteCases,
-  } = useGetHasteCasesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessStatisticsSummaryStatic });
+  // const {
+  //   data: dataGetHasteCases,
+  //   isLoading: isLoadingGetHasteCases,
+  //   isSuccess: isSuccessHasteCases,
+  // } = useGetHasteCasesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessStatisticsSummaryStatic });
 
-  const {
-    data: dataGetFees,
-    isLoading: isLoadingGetFees,
-    isSuccess: isSuccessFees,
-  } = useGetFeesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessHasteCases });
+  // const {
+  //   data: dataGetFees,
+  //   isLoading: isLoadingGetFees,
+  //   isSuccess: isSuccessFees,
+  // } = useGetFeesApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessHasteCases });
 
-  const {
-    data: dataGetArrests,
-    isLoading: isLoadingGetArrests,
-    isSuccess: isSuccessArrests,
-  } = useGetArrestsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessFees });
+  // const {
+  //   data: dataGetArrests,
+  //   isLoading: isLoadingGetArrests,
+  //   isSuccess: isSuccessArrests,
+  // } = useGetArrestsApi({ refetchInterval: REFRESH_INTERVAL, enabled: isSuccessFees });
 
   // const { data: geolocationsData, isLoading: geolocationsIsLoding } = useGetGeolocationsApi({
   //   refetchInterval: REFRESH_INTERVAL,
@@ -3936,24 +3920,24 @@ const HomePage = () => {
     libraries: ['visualization'],
   });
 
-  const data2 = {
-    ...dataComprehensivePetitions,
-    ...dataGetAuctions,
-    ...dataGetCaseStatisticsSummaryStatic,
-    ...dataGetCsDecisions,
-    ...dataGetCsCases,
-    ...dataDisbursementStatistics,
-    ...dataGetSmartPetitions,
-    ...dataGetVoucher,
-    ...dataGetSettlement,
-    ...dataGetMemberDecisions,
-    ...dataEnabat,
-    ...dataGetHasteCases,
-    ...dataGetFees,
-    ...dataGetArrests,
-  };
+  // const data2 = {
+  //   ...dataComprehensivePetitions,
+  //   ...dataGetAuctions,
+  //   ...dataGetCaseStatisticsSummaryStatic,
+  //   ...dataGetCsDecisions,
+  //   ...dataGetCsCases,
+  //   ...dataDisbursementStatistics,
+  //   ...dataGetSmartPetitions,
+  //   ...dataGetVoucher,
+  //   ...dataGetSettlement,
+  //   ...dataGetMemberDecisions,
+  //   ...dataEnabat,
+  //   ...dataGetHasteCases,
+  //   ...dataGetFees,
+  //   ...dataGetArrests,
+  // };
 
-  console.log(data2);
+  // console.log(data2);
 
   const chartTypes = useGetQueryData([getChartTypesApiEndpointIdentifier]);
 
@@ -3963,7 +3947,7 @@ const HomePage = () => {
   //   isLoadingGetCsDecisions ||
   //   isLoadingGetCsCases ||
   //   isLoadingGetCaseStatisticsSummaryStatic ||
-  //   geolocationsIsLoding ||
+  //   // geolocationsIsLoding ||
   //   isLoadingDisbursementStatistics ||
   //   isLoadingGetSmartPetitions ||
   //   isLoadingGetVoucher ||
@@ -3975,7 +3959,7 @@ const HomePage = () => {
   //   isLoadingGetFees ||
   //   isLoadingGetArrests
   // )
-  //   return <FullPageSpinner />;
+  //   console.log(false);
 
   return (
     <Layout>
